@@ -38,12 +38,12 @@ jobs:
       image: alpinelinux/docker-cli
     steps:
       - name: Download jar
-        steps: actions/download-artifact@v3
+        uses: actions/download-artifact@v3
         with:
           name: Build
       - name: Login to docker
-        steps: echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+        run: echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
       - name: Build image
-        steps: docker build -t dadepu/image:1 -t dadepu/image:latest
+        run: docker build -t dadepu/image:1 -t dadepu/image:latest
       - name: Push image
-        steps: docker push dadepu/image:1
+        run: docker push dadepu/image:1
