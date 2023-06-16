@@ -1,0 +1,22 @@
+name: Maven Test
+
+on:
+  push:
+    branches:
+      - master # replace with your branch name if not 'master'
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: maven:3.9.1-eclipse-temurin-20
+      options: --volume "${{ github.workspace }}:${{ github.workspace }}" --workdir "${{ github.workspace }}"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Maven test
+        run: mvn test
