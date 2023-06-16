@@ -6,16 +6,22 @@ on:
       - master # replace with your branch name if not 'master'
 
 jobs:
-  test:
-
+  build:
     runs-on: ubuntu-latest
-
     container:
       image: maven:3.9.1-eclipse-temurin-20
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Build artifacts
+        run: mvn package
 
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: maven:3.9.1-eclipse-temurin-20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Run Maven test
         run: mvn test
