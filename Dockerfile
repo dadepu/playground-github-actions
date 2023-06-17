@@ -9,7 +9,7 @@ WORKDIR /app
 
 # Copy built JAR file from the builder stage
 #COPY /app/target/*.jar ./app.jar
-COPY $INPUT_JAR_DIR/*.jar /app.jar
+COPY $INPUT_JAR_DIR/*.jar ./app.jar
 
 # Expose application port
 EXPOSE $PORT
