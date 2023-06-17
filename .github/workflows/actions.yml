@@ -13,8 +13,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Build artifacts
         run: mvn package
+
       - name: Archive jar
         uses: actions/upload-artifact@v3
         with:
@@ -23,11 +25,20 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    container:
-      image: maven:3.9.1-eclipse-temurin-20
+#    container:
+#      image: maven:3.9.1-eclipse-temurin-20
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: JDK + Maven
+        uses: actions/setup-java@v3.11.0
+        with:
+          distribution: temurin
+          java-version: 17
+          java-package: jdk
+          cache: maven
+
       - name: Run Maven test
         run: mvn test
 
@@ -43,25 +54,16 @@ jobs:
         with:
           name: build
 
-      - name: Debug ls
-        run: ls -a
-
       - name: Login to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v2.2.0
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
 
       - name: Build and push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v4.1.1
         with:
+          context: .
           push: true
           tags: ${{ secrets.DOCKER_USER }}/github:latest
-#        with:
-#          name: Build
-#      - name: Login to docker
-#        run: echo ${{ secrets.DOCKER_PASS }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
-#      - name: Build image
-#        run: docker build -t dadepu/image:1 -t dadepu/image:latest
-#      - name: Push image
-#        run: docker push dadepu/image:latest
+
