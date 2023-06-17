@@ -1,11 +1,12 @@
-# Stage 2: Build final image
+# Build runtime image
 FROM eclipse-temurin:17-jre-alpine
 
+# Set build arguments
 ARG JAR_INPUT_DIR=.
 ARG APP_NAME=app
 ARG PORT=8080
 
-## Set working directory
+# Set working directory
 WORKDIR /app
 
 # Copy built JAR file from the builder stage

@@ -1,4 +1,4 @@
-name: Main CD-Workflow
+name: Master CD-Workflow
 
 on:
   push:
@@ -32,6 +32,20 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15.3
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 8080:8080
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
