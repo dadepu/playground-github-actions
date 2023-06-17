@@ -3,7 +3,7 @@ name: Maven Test
 on:
   push:
     branches:
-      - master # replace with your branch name if not 'master'
+      - master
 
 jobs:
   build:
