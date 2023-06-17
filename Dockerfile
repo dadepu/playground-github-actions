@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy built JAR file from the builder stage
 #COPY /app/target/*.jar ./app.jar
-COPY /home/runner/work/playground-github-actions/playground-github-actions/*.jar ./app.jar
+COPY ./*.jar ./app.jar
 
 # Expose application port
 EXPOSE 8080
