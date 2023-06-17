@@ -8,11 +8,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: maven:3.9.1-eclipse-temurin-20
+#    container:
+#      image: maven:3.9.1-eclipse-temurin-20
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: JDK + Maven
+        uses: actions/setup-java@v3.11.0
+        with:
+          distribution: temurin
+          java-version: 17
+          java-package: jdk
+          cache: maven
 
       - name: Build artifacts
         run: mvn package
