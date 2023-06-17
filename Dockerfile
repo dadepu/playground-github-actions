@@ -9,7 +9,7 @@ ARG PORT=8080
 WORKDIR /app
 
 # Copy built JAR file from the builder stage
-COPY $JAR_INPUT_DIR/*.jar ./APP_NAME.jar
+COPY $JAR_INPUT_DIR/*.jar ./$APP_NAME.jar
 
 # Expose application port
 EXPOSE $PORT
