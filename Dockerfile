@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy built JAR file from the builder stage
 #COPY /app/target/*.jar ./app.jar
-COPY ./*.jar ./app.jar
+COPY ./target/*.jar ./app.jar
 
 # Expose application port
 EXPOSE 8080

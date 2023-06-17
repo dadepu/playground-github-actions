@@ -1,4 +1,4 @@
-name: Maven Test
+name: Maven CD-Workflow
 
 on:
   push:
@@ -8,46 +8,43 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-#    container:
-#      image: maven:3.9.1-eclipse-temurin-20
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: JDK + Maven
-        uses: actions/setup-java@v3.11.0
+        uses: actions/setup-java@3
         with:
           distribution: temurin
           java-version: 17
           java-package: jdk
           cache: maven
 
-      - name: Build artifacts
-        run: mvn package
+      - name: Build
+        run: mvn clean package -DskipTests
 
-      - name: Archive jar
+      - name: Push Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build
-          path: ./target/*.jar
+          path: .*/target/*.jar
+          retention-days: 1
 
   test:
     runs-on: ubuntu-latest
-#    container:
-#      image: maven:3.9.1-eclipse-temurin-20
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: JDK + Maven
-        uses: actions/setup-java@v3.11.0
+        uses: actions/setup-java@3
         with:
           distribution: temurin
           java-version: 17
           java-package: jdk
           cache: maven
 
-      - name: Run Maven test
+      - name: Run Tests
         run: mvn test
 
   deploy:
@@ -57,19 +54,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Download jar
+      - name: Download Jar
         uses: actions/download-artifact@v3
         with:
           name: build
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v2.2.0
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASS }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v4.1.1
+      - name: Build and Push
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
