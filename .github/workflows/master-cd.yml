@@ -78,8 +78,8 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USER }}/github:latest
-          build-args: |
-            INPUT_JAR_DIR=${{steps.artifact-download.outputs.download-path}}
+#          build-args: |
+#            INPUT_JAR_DIR=${{steps.artifact-download.outputs.download-path}}
 
 
 
