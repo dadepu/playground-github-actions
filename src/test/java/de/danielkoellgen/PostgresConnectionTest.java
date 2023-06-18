@@ -10,20 +10,20 @@ import org.junit.jupiter.api.Test;
 import java.beans.Transient;
 
 @QuarkusTest
-public class PostgresConnectionTest {
+class PostgresConnectionTest {
 
     @Inject
     TestEntityRepository testEntityRepository;
 
     @BeforeEach
     @Transactional
-    public void setUp() {
+    void setUp() {
         testEntityRepository.deleteAll();
     }
 
     @Test
     @Transactional
-    public void testFindById() {
+    void testFindById() {
         // given
         testEntityRepository.persist(new TestEntity(1));
 
