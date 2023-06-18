@@ -38,7 +38,7 @@ jobs:
         image: postgres:15.3
         env:
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: testdb
+          POSTGRES_DB: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -92,6 +92,3 @@ jobs:
           tags: ${{ secrets.DOCKER_USER }}/github:latest
           build-args: |
             JAR_INPUT_DIR=.
-
-
-
