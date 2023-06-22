@@ -5,16 +5,10 @@ on:
     branches-ignore:
       - master
 
-
-env:
-  POSTGRES_IMAGE: postgres:15.3
-  JAVA_VER: 17
-  JAVA_DIST: temurin
-
 jobs:
   test:
     uses: ./.github/workflows/test.yml
     with:
-      postgres_image: ${{ env.POSTGRES_IMAGE }}
-      java_ver: ${{ env.JAVA_VER }}
-      java_dist: ${{ env.JAVA_DIST }}
+      postgres_image: postgres:15.3
+      java_ver: 17
+      java_dist: temurin
