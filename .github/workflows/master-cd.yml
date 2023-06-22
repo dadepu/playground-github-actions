@@ -78,6 +78,12 @@ jobs:
         with:
           name: build
 
+      - name: Log Dir + Artifact
+        run: |
+          echo "::group::Current Dir"
+          ls -a
+          echo "::endgroup::"
+
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
