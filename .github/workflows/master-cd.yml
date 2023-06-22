@@ -15,8 +15,8 @@ jobs:
       - name: JDK + Maven
         uses: actions/setup-java@v3
         with:
-          distribution: temurin
-          java-version: 17
+          java-version: ${{ vars.JAVA_VER }}
+          distribution: ${{ vars.JAVA_DIST }}
           java-package: jdk
           cache: maven
 
@@ -34,8 +34,8 @@ jobs:
     uses: ./.github/workflows/test.yml
     with:
       postgres_image: ${{ vars.POSTGRES_IMAGE }}
-      java_ver: 17
-      java_dist: temurin
+      java_ver: ${{ vars.JAVA_VER }}
+      java_dist: ${{ vars.JAVA_DIST }}
 
   deploy:
     runs-on: ubuntu-latest

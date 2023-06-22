@@ -9,6 +9,6 @@ jobs:
   test:
     uses: ./.github/workflows/test.yml
     with:
-      postgres_image: postgres:15.3
-      java_ver: 17
-      java_dist: temurin
+      postgres_image: ${{ vars.POSTGRES_IMAGE }}
+      java_ver: ${{ vars.JAVA_VER }}
+      java_dist: ${{ vars.JAVA_DIST }}
