@@ -6,7 +6,9 @@ on:
       - master
 
 env:
-  postgres_image: postgres:15.3
+  postgres_image: 'postgres:15.3'
+  java_ver: 17
+  java_dist: temurin
 
 jobs:
   build:
