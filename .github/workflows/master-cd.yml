@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  POSTGRES_IMAGE: postgres:15.3
+  postgres_img: postgres:15.3
   java_ver: 17
   java_dist: temurin
 
@@ -38,7 +38,7 @@ jobs:
   test:
     uses: ./.github/workflows/test.yml
     with:
-      postgres_image: $POSTGRES_IMAGE
+      postgres_image: ${{ env.postgres_img }}
       java_ver: 17
       java_dist: temurin
 
