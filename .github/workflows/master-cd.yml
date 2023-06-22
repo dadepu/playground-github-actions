@@ -20,8 +20,8 @@ jobs:
       - name: JDK + Maven
         uses: actions/setup-java@v3
         with:
-          distribution: $JAVA_DIST
-          java-version: $JAVA_VER
+          distribution: ${{ env.JAVA_DIST }}
+          java-version: ${{ env.JAVA_VER }}
           java-package: jdk
           cache: maven
 
@@ -38,9 +38,9 @@ jobs:
   test:
     uses: ./.github/workflows/test.yml
     with:
-      postgres_image: $POSTGRES_IMAGE
-      java_ver: $JAVA_VER
-      java_dist: $JAVA_DIST
+      postgres_image: ${{ env.POSTGRES_IMAGE }}
+      java_ver: ${{ env.JAVA_VER }}
+      java_dist: ${{ env.JAVA_DIST }}
 
   deploy:
     runs-on: ubuntu-latest
