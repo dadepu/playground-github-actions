@@ -5,6 +5,11 @@ on:
     branches:
       - master
 
+env:
+  POSTGRES_IMAGE: postgres:15.3
+  JAVA_VER: 17
+  JAVA_DIST: temurin
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,8 +20,8 @@ jobs:
       - name: JDK + Maven
         uses: actions/setup-java@v3
         with:
-          distribution: temurin
-          java-version: 17
+          distribution: $JAVA_DIST
+          java-version: $JAVA_VER
           java-package: jdk
           cache: maven
 
@@ -33,7 +38,9 @@ jobs:
   test:
     uses: ./.github/workflows/test.yml
     with:
-      postgres_image: postgres:15.3
+      postgres_image: $POSTGRES_IMAGE
+      java_ver: $JAVA_VER
+      java_dist: $JAVA_DIST
 
   deploy:
     runs-on: ubuntu-latest

@@ -4,7 +4,15 @@ on:
   workflow_call:
     inputs:
       postgres_image:
-        default: 'postgres:15.3'
+        default: postgres:15.3
+        required: false
+        type: string
+      java_ver:
+        default: 17
+        required: false
+        type: string
+      java_dist:
+        default: temurin
         required: false
         type: string
 
@@ -33,8 +41,8 @@ jobs:
       - name: JDK + Maven
         uses: actions/setup-java@v3
         with:
-          distribution: temurin
-          java-version: 17
+          distribution: ${{ inputs.java_dist }}
+          java-version: ${{ inputs.java_ver }}
           java-package: jdk
           cache: maven
 

@@ -5,35 +5,16 @@ on:
     branches-ignore:
       - master
 
+
+env:
+  POSTGRES_IMAGE: postgres:15.3
+  JAVA_VER: 17
+  JAVA_DIST: temurin
+
 jobs:
   test:
-    runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:15.3
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: JDK + Maven
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
-          java-package: jdk
-          cache: maven
-
-      - name: Run Tests
-        run: mvn test
+    uses: ./.github/workflows/test.yml
+    with:
+      postgres_image: $POSTGRES_IMAGE
+      java_ver: $JAVA_VER
+      java_dist: $JAVA_DIST
