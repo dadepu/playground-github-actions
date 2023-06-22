@@ -35,7 +35,7 @@ jobs:
     with:
       postgres_image: ${{ vars.POSTGRES_IMAGE }}
       java_ver: 17
-      java_dir: temurin
+      java_dist: temurin
 
   deploy:
     runs-on: ubuntu-latest
